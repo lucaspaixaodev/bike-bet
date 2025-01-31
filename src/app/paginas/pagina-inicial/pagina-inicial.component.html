@@ -1,0 +1,113 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-6 shadow-lg">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold">Bike-Bet</h1>
+      <p class="mt-2">Suas apostas no mundo do ciclismo profissional</p>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- Adicionar antes da seção de Ciclistas em Destaque -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Top 5 Ciclistas UCI</h2>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posição</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ciclista</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Equipe</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nacionalidade</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pontos UCI</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr *ngFor="let ciclista of topCiclistas" class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="inline-flex items-center justify-center h-8 w-8 rounded-full"
+                        [ngClass]="{
+                          'bg-yellow-100 text-yellow-800': ciclista.posicaoRanking === 1,
+                          'bg-gray-100 text-gray-800': ciclista.posicaoRanking && ciclista.posicaoRanking === 2,
+                          'bg-orange-100 text-orange-800': ciclista.posicaoRanking && ciclista.posicaoRanking === 3,
+                          'text-gray-600': ciclista.posicaoRanking && ciclista.posicaoRanking > 3
+                        }">
+                    {{ciclista.posicaoRanking}}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="h-10 w-10 flex-shrink-0">
+                      <img class="h-10 w-10 rounded-full object-cover" [src]="ciclista.imagemUrl" [alt]="ciclista.nome">
+                    </div>
+                    <div class="ml-4">
+                      <div class="font-medium text-gray-900">{{ciclista.nome}}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ciclista.equipe}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ciclista.nacionalidade}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                  {{ciclista.pontosUci}} pts
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Ciclistas em Destaque -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Ciclistas em Destaque</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <mat-card class="hover:shadow-xl transition-shadow" *ngFor="let ciclista of ciclistasDestaque">
+          <img mat-card-image [src]="ciclista.imagemUrl" [alt]="ciclista.nome" class="h-48 w-full object-cover">
+          <mat-card-content class="p-4">
+            <h3 class="text-xl font-bold">{{ciclista.nome}}</h3>
+            <p class="text-gray-600">{{ciclista.equipe}}</p>
+            <p class="text-lg font-semibold text-green-600 mt-2">Odds: {{ciclista.odds}}</p>
+          </mat-card-content>
+          <mat-card-actions class="p-4 pt-0">
+            <button mat-raised-button color="primary" (click)="fazerAposta(ciclista.id)"
+                    class="w-full">
+              Apostar
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <!-- Novo botão "Ver Todos os Ciclistas" -->
+      <div class="flex justify-center mt-8">
+        <button mat-raised-button color="primary" routerLink="/ciclistas" class="px-8 py-2">
+          Ver Todos os Ciclistas
+        </button>
+      </div>
+    </section>
+
+    <!-- Seção de Próximas Provas -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Próximas Provas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <mat-card class="hover:shadow-xl transition-shadow" *ngFor="let prova of proximasProvas">
+          <img mat-card-image [src]="prova.imagemUrl" [alt]="prova.nome" class="h-40 w-full object-cover">
+          <mat-card-content class="p-4">
+            <h3 class="text-xl font-bold">{{prova.nome}}</h3>
+            <p class="text-gray-600">{{prova.data}}</p>
+            <p class="text-gray-600">{{prova.local}}</p>
+          </mat-card-content>
+          <mat-card-actions class="p-4 pt-0">
+            <button mat-stroked-button color="primary" class="w-full">
+              Ver Detalhes
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </section>
+  </main>
+</div>
