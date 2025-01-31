@@ -52,13 +52,15 @@ export class PaginaInicialComponent implements OnInit {
       nome: 'Tour de France 2024',
       data: '29 Jun - 21 Jul',
       local: 'França',
-      imagemUrl: 'assets/provas/tour.jpg'
+      imagemUrl: 'assets/imagens/provas/italia.jpg'
     },
+
     {
       nome: 'Giro d\'Italia 2024',
       data: '4 Mai - 26 Mai',
       local: 'Itália',
-      imagemUrl: 'assets/provas/giro.jpg'
+      imagemUrl: 'assets/imagens/provas/france.jpg'
+
     }
   ];
 
