@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalApostaComponent } from '../modal-aposta/modal-aposta.component';
 
 interface Ciclista {
   id: number;
@@ -113,12 +115,29 @@ export class PaginaInicialComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void { }
 
   fazerAposta(ciclistaId: number): void {
-    console.log('Aposta realizada no ciclista ID:', ciclistaId);
-    // Implementar lógica de aposta
+    const ciclista = this.ciclistasDestaque.find(c => c.id === ciclistaId) ||
+                    this.topCiclistas.find(c => c.id === ciclistaId);
+
+    const dialogRef = this.dialog.open(ModalApostaComponent, {
+      width: '500px',
+      data: { ciclista },
+      panelClass: 'bg-transparent',
+      backdropClass: 'bg-gray-900/50'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Dados da aposta:', result);
+        // Aqui você pode implementar a lógica para salvar a aposta
+        // com os dados do usuário e do ciclista selecionado
+      }
+    });
   }
 }
